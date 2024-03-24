@@ -7,6 +7,8 @@ function About() {
   const [designSkillsElements, setDesignSkillsElements] = useState(null); // State for design skills elements
   const [marketingSkillsElements, setMarketingSkillsElements] = useState(null); // State for marketing skills elements
 
+
+  
   useEffect(() => {
     getPages()
       .then(data => {
@@ -85,6 +87,7 @@ function About() {
 
   return (
     <div className='main'>
+      <h1></h1>
       <div className='about-intro-section'>
         <h1>
           {aboutData?.[0]?.title?.rendered}
@@ -117,6 +120,8 @@ function About() {
           <div>{marketingSkillsElements}</div>
         </div>{/* Render marketing skills elements */}
       </div>
+
+     
     </div>
   );
 }
