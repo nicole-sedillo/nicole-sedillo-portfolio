@@ -60,6 +60,7 @@ body {
 .projects-link {
   display: flex;
   justify-content: center;
+  cursor: pointer;
 }
 
 /*# sourceMappingURL=styles.css.map */
