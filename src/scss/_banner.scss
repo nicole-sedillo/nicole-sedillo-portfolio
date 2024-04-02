@@ -1,0 +1,9 @@
+@use "variables" as *;
+
+.home-banner h1 {
+    border-bottom: solid;
+    border-color: $secondary-color;
+    padding-bottom: 0.5rem;
+    max-width: 18.5rem;
+}
+

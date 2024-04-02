@@ -25,3 +25,18 @@ export async function fetchImageUrlById(imageId) {
     return null;
   }
 }
+
+export async function getProjects() {
+  try {
+    const response = await fetch('https://nicolesedillo.com/portfolio/wp-json/wp/v2/project');
+    if (!response.ok) {
+      throw new Error('Failed to fetch projects');
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching projects:', error);
+    throw error; // Re-throw the error to handle it elsewhere if needed
+  }
+}
+

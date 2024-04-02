@@ -1,0 +1,35 @@
+@use "variables" as *;
+
+.logo {
+    width: 5rem;
+}
+
+.header-nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+.header-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    padding-left: 6rem;
+}
+
+.header-nav a {
+    text-decoration: none;
+    color: $accent-color;
+}
+
+@media (min-width: 48.75em) {
+    .header-nav a {
+        font-size: 1.5rem;
+    }
+}
+
+@media (min-width: 90em) {
+    .header-nav a:hover,
+    .header-nav a:focus {
+        color: $secondary-color;
+    }
+}
