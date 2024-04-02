@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getPages, getProjects, fetchImageUrlById } from "../utilities/api";
+import arrow from "../images/arrow.svg";
 
 function Home() {
     const [homeData, setHomeData] = useState([]);
@@ -24,35 +25,56 @@ function Home() {
     }, []);
 
     useEffect(() => {
-        const fetchProjectImages = async () => {
-            const updatedProjects = await Promise.all(projects.map(async (project) => {
-                const desktopImageUrl = project?.acf?.desktop_image ? await fetchImageUrlById(project.acf.desktop_image) : null;
-                const mobileImageUrl = project?.acf?.mobile_image ? await fetchImageUrlById(project.acf.mobile_image) : null;
+      const fetchData = async () => {
+          try {
+              const projectsData = await getProjects();
+              const projectsWithImages = await Promise.all(projectsData.map(async project => {
+                  const desktopImageUrl = project?.acf?.desktop_image ? await fetchImageUrlById(project.acf.desktop_image) : null;
+                  const mobileImageUrl = project?.acf?.mobile_image ? await fetchImageUrlById(project.acf.mobile_image) : null;
+  
+                  return {
+                      ...project,
+                      desktopImageUrl,
+                      mobileImageUrl
+                  };
+              }));
+              setProjects(projectsWithImages);
+          } catch (error) {
+              console.error("Error fetching projects:", error);
+          }
+      };
+  
+      fetchData();
+  }, []);
+  
+  
 
-                return {
-                    ...project,
-                    desktopImageUrl,
-                    mobileImageUrl
-                };
-            }));
-            
-            setProjects(updatedProjects);
-        };
-
-        fetchProjectImages();
-    }, [projects]);
+    const handleScrollToProjects = () => {
+      const projectsSection = document.getElementById('projects-section');
+      if (projectsSection) {
+        projectsSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    };
 
     return (
         <div>
-          <header className="home-banner"> 
-            <h1>{homeData?.[1]?.title?.rendered}</h1>
-            <p>Front-End Web Developer</p>
+
+          <header className="home-banner">
+            <section className="home-banner-text">
+              <h1>{homeData?.[1]?.title?.rendered}</h1>
+              <p>Front-End Web Developer</p>
+            </section> 
+            <a className="projects-link" onClick={handleScrollToProjects}>
+            <img src={arrow} alt="" />
+          </a>
           </header>
-          <section className="home-projects-title">
+
+          
+
+          <section className="home-projects-title" id="projects-section">
             <h2>{homeData?.[1]?.acf?.projects_title}</h2>
             <p>{homeData?.[1]?.acf?.projects_intro}</p>
           </section>
-
           <section className="home-projects-section">
             {projects.map(project => (
               <div key={project.id}>

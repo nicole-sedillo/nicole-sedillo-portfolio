@@ -6,6 +6,7 @@
 .header-nav {
   display: flex;
   justify-content: space-between;
+  margin-right: 1rem;
 }
 
 .header-nav ul {
@@ -36,11 +37,29 @@ body {
   margin-left: 1rem;
 }
 
+.home-banner {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20rem;
+}
+
 .home-banner h1 {
   border-bottom: solid;
   border-color: #FF944C;
   padding-bottom: 0.5rem;
-  max-width: 18.5rem;
+  max-width: 20rem;
+  font-size: 2.5rem;
+}
+
+.home-banner p {
+  font-size: 1.25rem;
+}
+
+.projects-link {
+  display: flex;
+  justify-content: center;
 }
 
 /*# sourceMappingURL=styles.css.map */

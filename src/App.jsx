@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import About from './components/About';
 import Home from './components/Home';
 import "./styles/styles.css";
-import portfolioLogo from "./images/favicon.svg"
+import portfolioLogo from "./images/favicon.svg";
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
           <nav className='header-nav'>
             <a>
               <Link to="/">
-                <img className="logo" src={portfolioLogo} alt="" />
+                <img className="logo" src={portfolioLogo} alt="a logo with an orange circle background, fancy cursive font with the letters n and s in white and blue" />
               </Link>
             </a>
             <ul>
