@@ -28,7 +28,8 @@
     color: #FF944C;
   }
 }
-.logo {
+.logo,
+.icon {
   width: 5rem;
 }
 
