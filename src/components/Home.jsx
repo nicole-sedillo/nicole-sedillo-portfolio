@@ -6,6 +6,21 @@ import arrow from "../images/arrow.svg";
 function Home() {
     const [homeData, setHomeData] = useState([]);
     const [projects, setProjects] = useState([]);
+    const [developerText, setDeveloperText] = useState("Front-End Web Developer");
+
+    // Function for dynamic text
+    useEffect(() => {
+        const textOptions = ["Front-End Web Developer", "Web Designer", "Digital Marketer"];
+        let index = 0;
+
+        const intervalId = setInterval(() => {
+            setDeveloperText(textOptions[index]);
+            index = (index + 1) % textOptions.length;
+        }, 2000);
+
+        return () => clearInterval(intervalId);
+    }, []);
+
 
     useEffect(() => {
         getPages()
@@ -66,7 +81,7 @@ function Home() {
             <header className="home-banner">
                 <section className="home-banner-text">
                     <h1>{homeData?.[1]?.title?.rendered}</h1>
-                    <p>Front-End Web Developer</p>
+                    <p>{developerText}</p>
                 </section>
                 <a className="projects-link" onClick={handleScrollToProjects}>
                     <img src={arrow} alt="" />

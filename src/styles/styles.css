@@ -28,8 +28,7 @@
     color: #FF944C;
   }
 }
-.logo,
-.icon {
+.logo {
   width: 5rem;
 }
 
@@ -135,7 +134,7 @@ p {
     font-size: 4rem;
   }
   .home-banner p {
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
 }
 @media (min-width: 90em) {
@@ -294,6 +293,13 @@ p {
     width: 7rem;
     height: 16.199rem;
   }
+  .project-card {
+    padding: 0 1rem 3rem 2rem;
+  }
+  .project-card:hover {
+    transform: translateY(-5px); /* Move the card up slightly on hover */
+    transition: transform 0.3s ease;
+  }
 }
 @media (min-width: 90em) {
   .home-main {
@@ -315,6 +321,7 @@ p {
   gap: 1rem;
   flex-wrap: wrap;
   justify-content: center;
+  line-height: 1;
 }
 
 .skill-element {
@@ -336,7 +343,7 @@ p {
   color: #0F0096;
   position: relative;
   background: white;
-  padding: 1rem;
+  padding: 1.5rem;
   max-width: 420px;
 }
 
@@ -442,7 +449,7 @@ p {
     flex-direction: column;
   }
   .tab-navigation {
-    gap: 2rem;
+    gap: 5rem;
   }
   .tab-navigation button {
     font-size: 1.5rem;
@@ -467,6 +474,44 @@ p {
   }
   .single-project-mid-section {
     align-items: center;
+  }
+}
+footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-top: solid;
+  border-color: #FF944C;
+  margin-top: 2rem;
+}
+
+footer ul {
+  display: flex;
+  gap: 1rem;
+  padding: 0;
+}
+
+footer li {
+  list-style: none;
+}
+
+.footer-left ul {
+  flex-direction: row;
+  align-items: center;
+}
+
+.icon,
+.footer-logo {
+  width: 2rem;
+}
+
+@media (min-width: 48.75em) {
+  footer li {
+    font-size: 1.75rem;
+  }
+  .icon,
+  .footer-logo {
+    width: 4rem;
   }
 }
 

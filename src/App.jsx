@@ -41,18 +41,18 @@ function App() {
         </Routes>
 
         <footer>
-          <nav>
+          <nav className='footer-left'>
             <ul>
               <li>
                 <Link to="/">
-                  <img className="logo" src={portfolioLogo} alt="a logo with an orange circle background, fancy cursive font with the letters n and s in white and blue" />
+                  <img className="footer-logo" src={portfolioLogo} alt="a logo with an orange circle background, fancy cursive font with the letters n and s in white and blue" />
                 </Link>
               </li>
               <li>© {currentYear}</li>
             </ul>
           </nav>
 
-          <nav>
+          <nav className='footer-right'>
             <ul>
               <li>
                 <a href="https://github.com/nicole-sedillo" target="_blank" rel="noopener noreferrer">

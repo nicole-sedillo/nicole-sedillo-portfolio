@@ -67,7 +67,7 @@ function About() {
         setInterestsData({
           title: aboutData?.[0]?.acf?.interests_title,
           text: aboutData?.[0]?.acf?.interests_text,
-          images: images.filter(image => image) // Filter out null values
+          images: images.filter(image => image) 
         });
       } catch (error) {
         console.error('Error fetching interests data:', error);
@@ -127,7 +127,7 @@ function About() {
         </div>
       </div>
 
-      {/* Render interests section */}
+     
       <div className='interests-section'>
         <header>
           <h2>Interests</h2>

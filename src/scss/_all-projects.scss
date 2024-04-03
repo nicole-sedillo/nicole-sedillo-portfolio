@@ -153,6 +153,15 @@
         width: 7rem;
         height: 16.199rem;
     }
+
+    .project-card {
+        padding: 0 1rem 3rem 2rem;
+    }
+
+    .project-card:hover {
+        transform: translateY(-5px); /* Move the card up slightly on hover */
+        transition: transform 0.3s ease; 
+      }
 }
 
 

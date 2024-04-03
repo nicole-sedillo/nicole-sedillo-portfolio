@@ -9,6 +9,7 @@
     gap: 1rem;
     flex-wrap: wrap;
     justify-content: center;
+    line-height: 1;
 }
 .skill-element {
     display: flex;
@@ -29,7 +30,7 @@
     color: $accent-color;
     position: relative;
     background: white;
-    padding: 1rem;
+    padding: 1.5rem;
     max-width: 420px;
 }
 
