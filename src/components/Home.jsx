@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from 'react-router-dom'; // Import Link component
+import { Link } from 'react-router-dom'; 
 import { getPages, getProjects, fetchImageUrlById } from "../utilities/api";
 import arrow from "../images/arrow.svg";
 
@@ -78,7 +78,7 @@ function Home() {
               <section className="home-projects-section" id="projects-section">
                   {projects.map(project => (
                       <div className="project-card" key={project.id}>
-                          <Link to={`/project/${project.id}`}> {/* Link to individual project page */}
+                          <Link to={`/project/${project.id}`}> 
                               <h3>{project?.title?.rendered}</h3>
                           </Link>
                           <p>{truncateText(project?.acf?.project_overview, 150)}</p> {/* Truncate to 150 characters */}

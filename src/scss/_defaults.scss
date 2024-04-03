@@ -1,5 +1,9 @@
 @use "variables" as *;
 
+.logo {
+    width: 5rem;
+}
+
 h2,
 h3 {
     color: $accent-color;

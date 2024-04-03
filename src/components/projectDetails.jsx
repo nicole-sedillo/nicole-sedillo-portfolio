@@ -56,7 +56,7 @@ function ProjectDetails() {
   }
 
   return (
-    <div>
+    <div className='project-single-main'>
       <div className="single-project-top-section">
         <div className="single-projects-intro">
           <h2>{project?.title?.rendered}</h2>
@@ -150,14 +150,17 @@ function ProjectDetails() {
         </div>
       </div>
 
-      <h3>Other Projects</h3>
-      <ul>
-        {otherProjects.map(proj => (
-          <li key={proj.id}>
-            <Link to={`/project/${proj.id}`}>{proj.title.rendered}</Link>
-          </li>
-        ))}
-      </ul>
+      <div className='other-projects-section'>
+        <h3>Other Projects</h3>
+        <ul>
+          {otherProjects.map(proj => (
+            <li key={proj.id}>
+              <Link to={`/project/${proj.id}`}>{proj.title.rendered}</Link>
+            </li>
+            
+          ))}
+        </ul>
+        </div>
     </div>
   );
 }
