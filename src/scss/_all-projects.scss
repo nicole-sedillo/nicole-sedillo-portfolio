@@ -8,14 +8,21 @@
 
 .home-projects-section {
     display: flex;
-    flex-direction: column;
-    gap: 2rem;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 3rem;
+    justify-content: center;
 }
 
 // Project Card
 // Box shadow color modified from https://alvarotrigo.com/shadow-gradients/
 .project-card h3 {
     color: $accent-color;
+}
+
+.project-card h3:hover,
+.project-card h3:focus{
+    color: $secondary-color;
 }
 
 .project-card::before {
@@ -66,15 +73,13 @@
     display: flex;
     flex-wrap: wrap;
     padding: 0;
-    gap: 1rem;
 }
 
 .project-card li {
-    background-color: $secondary-color;
-    color: #000;
+    font-weight: bold;
     padding: 0.5rem;
     border-radius: 1.5rem;
-    box-shadow: 5px 10px #888888;
+
 }
 
 .project-card h3 {
@@ -117,9 +122,8 @@
 .project-links {
     display: flex;
     gap: 1rem;
-    justify-content: center;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    
 }
 
 .project-links a {
@@ -127,6 +131,10 @@
     color: $primary-color;
     padding: 1rem;
     border-radius: 1rem;
+}
+
+.project-links a:hover {
+    background: $secondary-color;
 }
 
 .view-details-link {
@@ -147,6 +155,8 @@
     }
 }
 
+
+
 @media (min-width: 90em) {
 
     .home-main {
@@ -156,5 +166,6 @@
         flex-direction: row;
         align-content: center;
         margin: 2rem;
+        min-width: 490px;
     }
 }

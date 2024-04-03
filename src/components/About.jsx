@@ -1,127 +1,146 @@
 import React, { useEffect, useState } from 'react';
-import { getPages, fetchImageUrlById } from '../utilities/api'; // Import fetchImageUrlById function
+import { getPages, fetchImageUrlById } from '../utilities/api';
 
 function About() {
   const [aboutData, setAboutData] = useState([]);
-  const [codingSkillsElements, setCodingSkillsElements] = useState(null); // State for coding skills elements
-  const [designSkillsElements, setDesignSkillsElements] = useState(null); // State for design skills elements
-  const [marketingSkillsElements, setMarketingSkillsElements] = useState(null); // State for marketing skills elements
+  const [skillsData, setSkillsData] = useState({});
+  const [interestsData, setInterestsData] = useState({}); 
 
-
-  
   useEffect(() => {
     getPages()
       .then(data => {
         setAboutData(data);
       })
       .catch(error => {
-        alert(error);
+        console.error('Error fetching about data:', error);
       });
   }, []);
 
   useEffect(() => {
-    // Function to fetch image URLs and render coding skills elements
-    const renderCodingSkills = async () => {
-      const codingSkills = aboutData?.[0]?.acf?.coding_skills;
-      if (!codingSkills) return null;
+    const fetchSkillsData = async () => {
+      try {
+        const codingSkills = aboutData?.[0]?.acf?.coding_skills;
+        const designSkills = aboutData?.[0]?.acf?.design_skills;
+        const marketingSkills = aboutData?.[0]?.acf?.marketing_skills;
 
-      const elements = await Promise.all(codingSkills.map(async (skill, index) => {
-        const imageUrl = await fetchImageUrlById(skill.coding_skill_image);
-        return (
-          <div key={index}>
-            <p>{skill.coding_skill_label}</p>
-            {imageUrl && <img src={imageUrl} alt={skill.coding_skill_label} />}
-          </div>
-        );
-      }));
+        const codingPromises = codingSkills ? codingSkills.map(skill => fetchImageUrlById(skill.coding_skill_image)) : [];
+        const designPromises = designSkills ? designSkills.map(skill => fetchImageUrlById(skill.design_skills_image)) : [];
+        const marketingPromises = marketingSkills ? marketingSkills.map(skill => fetchImageUrlById(skill.marketing_skills_image)) : [];
 
-      setCodingSkillsElements(elements); // Update state with resolved elements
+        const codingImages = await Promise.all(codingPromises);
+        const designImages = await Promise.all(designPromises);
+        const marketingImages = await Promise.all(marketingPromises);
+
+        const updatedSkillsData = {
+          codingSkills: codingSkills ? codingSkills.map((skill, index) => ({
+            label: skill.coding_skill_label,
+            imageUrl: codingImages[index],
+          })) : [],
+          designSkills: designSkills ? designSkills.map((skill, index) => ({
+            label: skill.design_skills_label,
+            imageUrl: designImages[index],
+          })) : [],
+          marketingSkills: marketingSkills ? marketingSkills.map((skill, index) => ({
+            label: skill.marketing_skills_label,
+            imageUrl: marketingImages[index],
+          })) : [],
+        };
+
+        setSkillsData(updatedSkillsData);
+      } catch (error) {
+        console.error('Error fetching skills data:', error);
+      }
     };
 
-    renderCodingSkills(); // Call the function to fetch image URLs and render elements
-  }, [aboutData]); // Re-run effect when aboutData changes
+    fetchSkillsData();
+  }, [aboutData]);
 
   useEffect(() => {
-    // Function to fetch image URLs and render design skills elements
-    const renderDesignSkills = async () => {
-      const designSkills = aboutData?.[0]?.acf?.design_skills;
-      if (!designSkills) return null;
+    const fetchInterestsData = async () => {
+      try {
+        const interests = aboutData?.[0]?.acf?.interests_images;
+        if (!interests) return;
 
-      const elements = await Promise.all(designSkills.map(async (skill, index) => {
-        const imageUrl = await fetchImageUrlById(skill.design_skills_image);
-        return (
-          <div key={index}>
-            <p>{skill.design_skills_label}</p>
-            {imageUrl && <img src={imageUrl} alt={skill.design_skills_label} />}
-          </div>
-        );
-      }));
+        const imagesPromises = interests.map(interest => fetchImageUrlById(interest.interests_image));
+        const images = await Promise.all(imagesPromises);
 
-      setDesignSkillsElements(elements); // Update state with resolved elements
+        setInterestsData({
+          title: aboutData?.[0]?.acf?.interests_title,
+          text: aboutData?.[0]?.acf?.interests_text,
+          images: images.filter(image => image) // Filter out null values
+        });
+      } catch (error) {
+        console.error('Error fetching interests data:', error);
+      }
     };
 
-    renderDesignSkills(); // Call the function to fetch image URLs and render elements
-  }, [aboutData]); // Re-run effect when aboutData changes
-
-  useEffect(() => {
-    // Function to fetch image URLs and render marketing skills elements
-    const renderMarketingSkills = async () => {
-      const marketingSkills = aboutData?.[0]?.acf?.marketing_skills;
-      if (!marketingSkills) return null;
-
-      const elements = await Promise.all(marketingSkills.map(async (skill, index) => {
-        const imageUrl = await fetchImageUrlById(skill.marketing_skills_image);
-        return (
-          <div key={index}>
-            <p>{skill.marketing_skills_label}</p>
-            {imageUrl && <img src={imageUrl} alt={skill.marketing_skills_label} />}
-          </div>
-        );
-      }));
-
-      setMarketingSkillsElements(elements); // Update state with resolved elements
-    };
-
-    renderMarketingSkills(); // Call the function to fetch image URLs and render elements
-  }, [aboutData]); // Re-run effect when aboutData changes
+    fetchInterestsData();
+  }, [aboutData]);
 
   return (
     <div className='main'>
-      <h1></h1>
+      <h1>{aboutData?.[0]?.title?.rendered}</h1>
       <div className='about-intro-section'>
-        <h1>
-          {aboutData?.[0]?.title?.rendered}
-        </h1>
-        <p>
-          {aboutData?.[0]?.acf?.about_overview}
-        </p>
+        <p>{aboutData?.[0]?.acf?.about_overview}</p>
       </div>
 
-     
-    
       <div className='skills-section'>
-
         <header>
-          <h2>{aboutData?.[0]?.acf?.skills_title}</h2>
+          <h2>Skills</h2>
         </header>
-        
-        <div className='coding-skills-card'>
-          <h3>{aboutData?.[0]?.acf?.coding_skills_title}</h3>
-          <div>{codingSkillsElements}</div>
-        </div>{/* Render coding skills elements */}
+        <div className='skills-cards-section'>
+          <div className='skills-card'>
+            <h3>{aboutData?.[0]?.acf?.coding_skills_title}</h3>
+            <div className='skills-elements'>
+              {skillsData.codingSkills && skillsData.codingSkills.map((skill, index) => (
+                <div key={index} className="skill-element">
+                  <p>{skill.label}</p>
+                  {skill.imageUrl && <img src={skill.imageUrl} alt={skill.label} />}
+                </div>
+              ))}
+            </div>
+          </div>
 
-        <div className='design-skills-card'>
-          <h3>{aboutData?.[0]?.acf?.design_skills_title}</h3>
-          <div>{designSkillsElements}</div>
-        </div> {/* Render design skills elements */}
+          <div className='skills-card'>
+            <h3>{aboutData?.[0]?.acf?.design_skills_title}</h3>
+            <div className='skills-elements'>
+              {skillsData.designSkills && skillsData.designSkills.map((skill, index) => (
+                <div key={index} className="skill-element">
+                  <p>{skill.label}</p>
+                  {skill.imageUrl && <img src={skill.imageUrl} alt={skill.label} />}
+                </div>
+              ))}
+            </div>
+          </div>
 
-        <div className='marketing-skills-card'>
-          <h3>{aboutData?.[0]?.acf?.marketing_skills_title}</h3>
-          <div>{marketingSkillsElements}</div>
-        </div>{/* Render marketing skills elements */}
+          <div className='skills-card'>
+            <h3>{aboutData?.[0]?.acf?.marketing_skills_title}</h3>
+            <div className='skills-elements'>
+              {skillsData.marketingSkills && skillsData.marketingSkills.map((skill, index) => (
+                <div key={index} className="skill-element">
+                  <p>{skill.label}</p>
+                  {skill.imageUrl && <img src={skill.imageUrl} alt={skill.label} />}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
 
-     
+      {/* Render interests section */}
+      <div className='interests-section'>
+        <header>
+          <h2>Interests</h2>
+        </header>
+        <div className='interests-text'>
+          <p dangerouslySetInnerHTML={{ __html: interestsData.text }}></p>
+        </div>
+        <div className='interests-images'>
+          {interestsData.images && interestsData.images.map((imageUrl, index) => (
+            <img key={index} src={imageUrl} alt={`Interest ${index}`} />
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

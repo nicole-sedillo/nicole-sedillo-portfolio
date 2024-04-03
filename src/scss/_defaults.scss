@@ -1,8 +1,14 @@
 @use "variables" as *;
 
-body {
+h2,
+h3 {
+    color: $accent-color;
+}
+
+body,
+button {
     font-family: $font;
-    margin-left: 1rem;
+    margin: 1rem;
 }
 
 img {
@@ -11,4 +17,39 @@ img {
 
 a {
     color: $accent-color;
+    text-decoration: none;
+}
+
+p{
+    max-width: 70rem;
+    line-height: 1.75rem;
+}
+
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+@media (min-width: 50em) {
+    body {
+        margin-left: 2rem;
+    }
+
+    p {
+        font-size: 1.25rem;
+        line-height: 2rem;
+    }
+
+    h2 {
+        font-size: 1.75rem;
+    }
+
+    h3 {
+        font-size: 1.5rem;
+    }
+
+   
 }

@@ -55,6 +55,12 @@ function Home() {
         }
     };
 
+    // Function to truncate text
+    const truncateText = (text, maxLength) => {
+        if (text.length <= maxLength) return text;
+        return text.substr(0, maxLength) + '...';
+    };
+
     return (
         <div>
             <header className="home-banner">
@@ -68,13 +74,15 @@ function Home() {
             </header>
 
             <div className="home-main">
+            <a href="#main-content" className="skip-link">Skip to content</a>
               <section className="home-projects-section" id="projects-section">
                   {projects.map(project => (
                       <div className="project-card" key={project.id}>
                           <Link to={`/project/${project.id}`}> {/* Link to individual project page */}
                               <h3>{project?.title?.rendered}</h3>
                           </Link>
-                          <p>{project?.acf?.project_overview}</p>
+                          <p>{truncateText(project?.acf?.project_overview, 150)}</p> {/* Truncate to 150 characters */}
+                          <Link to={`/project/${project.id}`} className="view-details-link">View Details</Link>
                           <ul className="tools-used">
                               {project?.acf?.tools_used_text && (
                                   <div dangerouslySetInnerHTML={{ __html: project.acf.tools_used_text }} />
@@ -121,7 +129,7 @@ function Home() {
                                   )}
                               </div>
                           </div>
-                          <Link to={`/project/${project.id}`} className="view-details-link">View Details</Link>
+                          
                       </div>
                   ))}
               </section>
