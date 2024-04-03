@@ -1,0 +1,160 @@
+@use "variables" as *;
+
+.home-main  {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.home-projects-section {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+// Project Card
+// Box shadow color modified from https://alvarotrigo.com/shadow-gradients/
+.project-card h3 {
+    color: $accent-color;
+}
+
+.project-card::before {
+    content: "";
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(-45deg, #ff3d00 0%, #0400ff 64% );
+    transform: translate3d(0px, 2px, 0) scale(0.99);
+    filter: blur(14px);
+    opacity: var(0.7);
+    transition: opacity 0.3s;
+    border-radius: inherit;
+}
+
+.project-card {
+    border-radius: 4rem;
+    padding: 0 1rem 3rem 1rem;
+    color: $accent-color;
+    position: relative;
+    background: white;
+    width: 90%;
+    max-width: 624.19px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    
+}
+
+.project-card::after {
+    content: "";
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: inherit;
+    border-radius: inherit;
+}
+
+.project-card ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+    gap: 1rem;
+}
+
+.project-card li {
+    background-color: $secondary-color;
+    color: #000;
+    padding: 0.5rem;
+    border-radius: 1.5rem;
+    box-shadow: 5px 10px #888888;
+}
+
+.project-card h3 {
+    text-align: center;
+    padding: 0;
+    font-size: 1.75rem;
+}
+
+.project-card a {
+    text-decoration: none;
+    
+}
+
+
+.project-images-section {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: center;
+    margin: 2rem 0rem;
+
+}
+
+.project-images-section img {
+    border-radius: 1rem;
+}
+
+
+.desktop-image img{
+   width: 12rem;
+}
+
+
+.mobile-image img{
+    width: 3rem;
+    height: 6.5rem;
+}
+
+.project-links {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.project-links a {
+    background-color: $accent-color;
+    color: $primary-color;
+    padding: 1rem;
+    border-radius: 1rem;
+}
+
+.view-details-link {
+    color: $accent-color;
+}
+
+
+@media (min-width: 30em) {
+    .desktop-image img{
+        width: 15rem;
+        height: 16.198rem;
+        object-fit: cover;
+     }
+
+    .mobile-image img{
+        width: 7rem;
+        height: 16.199rem;
+    }
+}
+
+@media (min-width: 90em) {
+
+    .home-main {
+        align-items: flex-start;
+    }
+    .home-projects-section {
+        flex-direction: row;
+        align-content: center;
+        margin: 2rem;
+    }
+}

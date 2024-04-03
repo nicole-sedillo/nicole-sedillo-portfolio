@@ -26,5 +26,70 @@
     cursor: pointer;
 }
 
+@media(min-width: 33.125em) {
+    .home-banner-text {
+        margin-left: 5rem;
+    }
+
+    .home-banner h1 {
+        max-width: 25rem;
+    }
+}
+
+@media (min-width: 48.75em) {
+
+    .home-banner-text {
+        margin-left: 10rem;
+        
+    }
+
+    .home-banner p {
+        font-size: 1.75rem;
+    }
+
+    .home-banner h1 {
+        font-size: 3.5rem;
+        max-width: 30rem;
+        
+    }
+
+}
+
+@media (min-width: 62.5em) {
+
+    
+    .home-banner-text {
+        margin-left: 25rem;
+
+    }
+
+    .home-banner h1 {
+       
+        font-size: 4rem;
+    }
+
+    .home-banner p {
+        font-size: 2rem;
+    }
+}
+
+@media (min-width: 90em) {
+    .home-banner-text {
+        margin-left: 30rem;
+    }
+}
+
+@media (min-width: 93.5em) {
+    .home-banner-text {
+        margin-left: 40rem;
+    }
+}
+
+@media (min-width: 120em) {
+    .home-banner-text {
+        margin-left: 45rem;
+    }
+}
+
 
 

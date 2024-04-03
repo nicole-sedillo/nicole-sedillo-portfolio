@@ -3,6 +3,7 @@ import About from './components/About';
 import Home from './components/Home';
 import "./styles/styles.css";
 import portfolioLogo from "./images/favicon.svg";
+import ProjectDetails from './components/projectDetails';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/project/:projectId" element={<ProjectDetails />} />
         </Routes>
       </div>
     </Router>
