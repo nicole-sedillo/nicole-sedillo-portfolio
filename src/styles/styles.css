@@ -53,7 +53,7 @@ a {
 }
 
 p {
-  max-width: 70rem;
+  max-width: 80rem;
   line-height: 1.75rem;
 }
 
@@ -69,9 +69,10 @@ p {
   body {
     margin-left: 2rem;
   }
-  p {
+  p,
+  a {
     font-size: 1.25rem;
-    line-height: 2rem;
+    line-height: 2.2rem;
   }
   h2 {
     font-size: 1.75rem;
@@ -312,6 +313,12 @@ p {
     min-width: 490px;
   }
 }
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
 .skills-section img {
   width: 2rem;
 }
@@ -363,8 +370,29 @@ p {
   border-radius: inherit;
 }
 
+.skills-card::after {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: inherit;
+  border-radius: inherit;
+}
+
+.skills-card h3 {
+  text-align: center;
+}
+
+.skills-card p {
+  line-height: 1rem;
+}
+
 .interests-section img {
-  width: 20rem;
+  width: 100%;
+  max-width: 20rem;
 }
 
 .interests-images {
@@ -378,10 +406,19 @@ p {
   .skills-cards-section {
     justify-content: center;
   }
+  .skills-card:hover {
+    transform: translateY(-5px); /* Move the card up slightly on hover */
+    transition: transform 0.3s ease;
+  }
 }
-@media (min-width: 63.688em) {
-  .skills-cards-section {
-    justify-content: flex-start;
+@media (min-width: 40em) {
+  .main {
+    padding: 0 4rem;
+  }
+}
+@media (min-width: 90em) {
+  .main {
+    padding: 0 8rem;
   }
 }
 .single-projects-intro {
@@ -449,7 +486,7 @@ p {
     flex-direction: column;
   }
   .tab-navigation {
-    gap: 5rem;
+    gap: 8rem;
   }
   .tab-navigation button {
     font-size: 1.5rem;

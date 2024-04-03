@@ -79,8 +79,8 @@ function About() {
 
   return (
     <div className='main'>
-      <h1>{aboutData?.[0]?.title?.rendered}</h1>
       <div className='about-intro-section'>
+        <h1>About</h1>
         <p>{aboutData?.[0]?.acf?.about_overview}</p>
       </div>
 
