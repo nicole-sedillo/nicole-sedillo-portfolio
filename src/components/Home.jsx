@@ -100,11 +100,10 @@ function Home() {
                 </section>
                 
                 <div class="mouse_scroll">
-                        <span class="m_scroll_arrows one"></span>
-                        <span class="m_scroll_arrows two"></span>
-                        <span class="m_scroll_arrows three"></span>
-                        
-                    </div>
+                    <span class="m_scroll_arrows one"></span>
+                    <span class="m_scroll_arrows two"></span>
+                    <span class="m_scroll_arrows three"></span>
+                </div>
             </header>
 
             <div className="home-main">
