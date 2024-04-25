@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom'; 
 import { getPages, getProjects, fetchImageUrlById } from "../utilities/api";
-import arrow from "../images/arrow.svg";
+
 
 function Home() {
     const [homeData, setHomeData] = useState([]);
@@ -12,13 +12,24 @@ function Home() {
     useEffect(() => {
         const textOptions = ["Front-End Web Developer", "Web Designer", "Digital Marketer"];
         let index = 0;
-
+    
         const intervalId = setInterval(() => {
             setDeveloperText(textOptions[index]);
             index = (index + 1) % textOptions.length;
         }, 2000);
-
-        return () => clearInterval(intervalId);
+    
+        // Show mouse scroll after 2 seconds
+        const showMouseScroll = setTimeout(() => {
+            const mouseScroll = document.querySelector('.mouse_scroll');
+            if (mouseScroll) {
+                mouseScroll.style.display = 'block';
+            }
+        }, 2000);
+    
+        return () => {
+            clearInterval(intervalId);
+            clearTimeout(showMouseScroll);
+        };
     }, []);
 
 
@@ -63,12 +74,16 @@ function Home() {
         fetchData();
     }, []);
 
-    const handleScrollToProjects = () => {
-        const projectsSection = document.getElementById('projects-section');
-        if (projectsSection) {
-            projectsSection.scrollIntoView({ behavior: 'smooth' });
+    useEffect(() => {
+        // Smooth scroll to projects section when page loads with a hash in the URL
+        const hash = window.location.hash;
+        if (hash === '#projects-section') {
+            const projectsSection = document.getElementById('projects-section');
+            if (projectsSection) {
+                projectsSection.scrollIntoView({ behavior: 'smooth' });
+            }
         }
-    };
+    }, []);
 
     // Function to truncate text
     const truncateText = (text, maxLength) => {
@@ -77,20 +92,28 @@ function Home() {
     };
 
     return (
-        <div>
+        <div className="main-home">
             <header className="home-banner">
                 <section className="home-banner-text">
-                    <h1>{homeData?.[1]?.title?.rendered}</h1>
-                    <p>{developerText}</p>
+                    <h1>Hi, I'm Nicole.</h1>
+                    <p> I'm a {developerText}</p>
                 </section>
-                <a className="projects-link" onClick={handleScrollToProjects}>
-                    <img src={arrow} alt="" />
-                </a>
+                
+                <div class="mouse_scroll">
+                    <div class="mouse">
+                        <div class="wheel"></div>
+                        </div>
+                        <div>
+                        <span class="m_scroll_arrows one"></span>
+                        <span class="m_scroll_arrows two"></span>
+                        <span class="m_scroll_arrows three"></span>
+                        </div>
+                    </div>
             </header>
 
             <div className="home-main">
             <a href="#main-content" className="skip-link">Skip to content</a>
-              <section className="home-projects-section" id="projects-section">
+              <section id="projects-section"className="home-projects-section">
                   {projects.map(project => (
                       <div className="project-card" key={project.id}>
                           <Link to={`/project/${project.id}`}> 
