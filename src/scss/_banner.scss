@@ -2,6 +2,7 @@
 
 .main-home {
     background-color: $primary-color;
+    padding-bottom: 2rem;
 }
 .home-banner {
     height: 100vh;
@@ -9,6 +10,7 @@
     flex-direction: column;
     justify-content: center;
     gap: 20rem;
+    padding-left: 1.5rem;
 }
 
 .home-banner h1 {
@@ -20,6 +22,10 @@
 .home-banner p {
     font-size: 1.25rem;
     margin: 0;
+}
+
+.dynamic-text{
+    color: $secondary-color;
 }
 
 .projects-link {

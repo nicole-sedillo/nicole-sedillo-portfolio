@@ -39,7 +39,8 @@
 
 h2,
 h3 {
-  color: #0F0096;
+  color: #6622CC;
+  text-align: center;
 }
 
 body,
@@ -53,7 +54,7 @@ img {
 }
 
 a {
-  color: #0F0096;
+  color: #6622CC;
   text-decoration: none;
 }
 
@@ -70,24 +71,9 @@ p {
   overflow: hidden;
 }
 
-@media (min-width: 50em) {
-  body {
-    margin-left: 2rem;
-  }
-  p,
-  a {
-    font-size: 1.25rem;
-    line-height: 2.2rem;
-  }
-  h2 {
-    font-size: 1.75rem;
-  }
-  h3 {
-    font-size: 1.5rem;
-  }
-}
 .main-home {
   background-color: #DDDDDF;
+  padding-bottom: 2rem;
 }
 
 .home-banner {
@@ -96,6 +82,7 @@ p {
   flex-direction: column;
   justify-content: center;
   gap: 20rem;
+  padding-left: 1.5rem;
 }
 
 .home-banner h1 {
@@ -107,6 +94,10 @@ p {
 .home-banner p {
   font-size: 1.25rem;
   margin: 0;
+}
+
+.dynamic-text {
+  color: #6622CC;
 }
 
 .projects-link {
@@ -161,69 +152,42 @@ p {
     margin-left: 45rem;
   }
 }
-.home-main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .home-projects-section {
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
-  gap: 3rem;
-  justify-content: center;
-}
-
-.project-card h3 {
-  color: #0F0096;
-}
-
-.project-card h3:hover,
-.project-card h3:focus {
-  color: #6622CC;
-}
-
-.project-card::before {
-  content: "";
-  z-index: -1;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: linear-gradient(-45deg, #ff3d00 0%, #0400ff 64%);
-  transform: translate3d(0px, 2px, 0) scale(0.99);
-  filter: blur(14px);
-  opacity: var(0.7);
-  transition: opacity 0.3s;
-  border-radius: inherit;
 }
 
 .project-card {
-  border-radius: 4rem;
-  padding: 0 1rem 3rem 1rem;
-  color: #0F0096;
   position: relative;
-  background: white;
-  width: 90%;
-  max-width: 624.19px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  overflow: hidden;
+  margin: 2rem 1rem;
+  padding: 8rem 2rem;
+  max-width: 12rem;
+  border-radius: 1rem;
 }
 
-.project-card::after {
-  content: "";
-  z-index: -1;
+.project-overlay {
   position: absolute;
   top: 0;
-  right: 0;
-  bottom: 0;
   left: 0;
-  background: inherit;
-  border-radius: inherit;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(102, 34, 204, 0.1450980392); /* Adjust opacity as needed */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 9rem;
+}
+
+.project-overlay h3 {
+  color: #000000;
+}
+
+.tools-used {
+  color: #000000;
 }
 
 .project-card ul {
@@ -231,96 +195,25 @@ p {
   display: flex;
   flex-wrap: wrap;
   padding: 0;
+  justify-content: center;
 }
 
 .project-card li {
-  font-weight: bold;
   padding: 0.5rem;
-  border-radius: 1.5rem;
 }
 
 .project-card h3 {
   text-align: center;
-  padding: 0;
-  font-size: 1.75rem;
 }
 
 .project-card a {
   text-decoration: none;
 }
 
-.project-images-section {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  gap: 1rem;
-  justify-content: center;
-  margin: 2rem 0rem;
-}
-
-.project-images-section img {
-  border-radius: 1rem;
-}
-
 .desktop-image img {
   width: 12rem;
 }
 
-.mobile-image img {
-  width: 3rem;
-  height: 6.5rem;
-}
-
-.project-links {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.project-links a {
-  background-color: #0F0096;
-  color: #DDDDDF;
-  padding: 1rem;
-  border-radius: 1rem;
-}
-
-.project-links a:hover {
-  background: #6622CC;
-}
-
-.view-details-link {
-  color: #0F0096;
-}
-
-@media (min-width: 30em) {
-  .desktop-image img {
-    width: 15rem;
-    height: 16.198rem;
-    object-fit: cover;
-  }
-  .mobile-image img {
-    width: 7rem;
-    height: 16.199rem;
-  }
-  .project-card {
-    padding: 0 1rem 3rem 2rem;
-  }
-  .project-card:hover {
-    transform: translateY(-5px); /* Move the card up slightly on hover */
-    transition: transform 0.3s ease;
-  }
-}
-@media (min-width: 90em) {
-  .home-main {
-    align-items: flex-start;
-  }
-  .home-projects-section {
-    flex-direction: row;
-    align-content: center;
-    margin: 2rem;
-    min-width: 490px;
-  }
-}
 .main {
   display: flex;
   flex-direction: column;

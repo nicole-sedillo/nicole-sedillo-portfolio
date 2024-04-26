@@ -57,12 +57,12 @@ function Home() {
                 const projectsData = await getProjects();
                 const projectsWithImages = await Promise.all(projectsData.map(async project => {
                     const desktopImageUrl = project?.acf?.desktop_image ? await fetchImageUrlById(project.acf.desktop_image) : null;
-                    const mobileImageUrl = project?.acf?.mobile_image ? await fetchImageUrlById(project.acf.mobile_image) : null;
+                    
 
                     return {
                         ...project,
                         desktopImageUrl,
-                        mobileImageUrl
+                        
                     };
                 }));
                 setProjects(projectsWithImages);
@@ -85,87 +85,51 @@ function Home() {
         }
     }, []);
 
-    // Function to truncate text
-    const truncateText = (text, maxLength) => {
-        if (text.length <= maxLength) return text;
-        return text.substr(0, maxLength) + '...';
-    };
 
     return (
         <div className="main-home">
             <header className="home-banner">
                 <section className="home-banner-text">
-                    <h1>Hi, I'm Nicole.</h1>
-                    <p> I'm a {developerText}</p>
+                    <p>Hi, I'm Nicole. </p>
+                    <p> I'm a <strong className="dynamic-text">{developerText}</strong></p>
                 </section>
                 
-                <div class="mouse_scroll">
-                    <span class="m_scroll_arrows one"></span>
-                    <span class="m_scroll_arrows two"></span>
-                    <span class="m_scroll_arrows three"></span>
+                <div className="mouse_scroll">
+                    <span className="m_scroll_arrows one"></span>
+                    <span className="m_scroll_arrows two"></span>
+                    <span className="m_scroll_arrows three"></span>
                 </div>
             </header>
 
             <div className="home-main">
-            <a href="#main-content" className="skip-link">Skip to content</a>
-              <section id="projects-section"className="home-projects-section">
-                  {projects.map(project => (
-                      <div className="project-card" key={project.id}>
-                          <Link to={`/project/${project.id}`}> 
-                              <h3>{project?.title?.rendered}</h3>
-                          </Link>
-                          <p>{truncateText(project?.acf?.project_overview, 150)}</p> {/* Truncate to 150 characters */}
-                          <Link to={`/project/${project.id}`} className="view-details-link">View Details</Link>
-                          <ul className="tools-used">
-                              {project?.acf?.tools_used_text && (
-                                  <div dangerouslySetInnerHTML={{ __html: project.acf.tools_used_text }} />
-                              )}
-                          </ul>
-                          <div className="project-links">
-                              <p>
-                                  {project?.acf?.github_link?.url && (
-                                      <a href={project.acf.github_link.url} target="_blank" rel="noopener noreferrer">
-                                          {project.acf.github_link.title}
-                                      </a>
-                                  )}
-                              </p>
-                              <p>
-                                  {project?.acf?.live_site_link?.url && (
-                                      <a href={project.acf.live_site_link.url} target="_blank" rel="noopener noreferrer">
-                                          {project.acf.live_site_link.title}
-                                      </a>
-                                  )}
-                              </p>
-                              {project?.acf?.prototype_link?.url && (
-                                  <p>
-                                      <a href={project.acf.prototype_link.url} target="_blank" rel="noopener noreferrer">
-                                          {project.acf.prototype_link.title}
-                                      </a>
-                                  </p>
-                              )}
-                          </div>
-                          <div className="project-images-section">
-                              <div className="desktop-image">
-                                  {project?.desktopImageUrl && (
-                                      <img
-                                          src={project.desktopImageUrl}
-                                          alt={project?.title?.rendered}
-                                      />
-                                  )}
-                              </div>
-                              <div className="mobile-image">
-                                  {project?.mobileImageUrl && (
-                                      <img
-                                          src={project.mobileImageUrl}
-                                          alt={project?.title?.rendered}
-                                      />
-                                  )}
-                              </div>
-                          </div>
-                          
-                      </div>
-                  ))}
-              </section>
+                <a href="#main-content" className="skip-link">Skip to content</a>
+                <h2>Projects</h2>
+                <section id="projects-section" className="home-projects-section">
+                    {projects.map(project => (
+                        <div className="project-card" key={project.id}>
+                            <Link to={`/project/${project.id}`}>
+                                <div className="project-overlay">
+                                    <h3>{project?.title?.rendered}</h3>
+                                    <ul className="tools-used">
+                                        {project?.acf?.tools_used_text && (
+                                            <div dangerouslySetInnerHTML={{ __html: project.acf.tools_used_text }} />
+                                        )}
+                                    </ul>
+                                </div>
+                            </Link>
+                            <div className="project-images-section">
+                                <div className="desktop-image">
+                                    {project?.desktopImageUrl && (
+                                        <img
+                                            src={project.desktopImageUrl}
+                                            alt={project?.title?.rendered}
+                                        />
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </section>
             </div>
         </div>
     );
