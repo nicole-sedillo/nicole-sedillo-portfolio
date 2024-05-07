@@ -49,7 +49,6 @@ function App() {
                   <img className="footer-logo" src={portfolioLogo} alt="a logo with an orange circle background, fancy cursive font with the letters n and s in white and blue" />
                 </Link>
               </li>
-              <li>© {currentYear}</li>
             </ul>
           </nav>
 

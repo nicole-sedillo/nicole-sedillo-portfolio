@@ -23,6 +23,10 @@
     padding: 0.5rem 1rem;
 }
 
+.project-links a:hover {
+    background-color: #000000;
+}
+
 .single-desktop-image img,
 .other-projects-section img {
     width: 100%;
@@ -44,6 +48,11 @@
     text-align: left;
     margin-left: 1rem;
 }
+
+.extras-section h3:hover {
+    color: #000000;
+}
+
 .tools-used-list ul {
     display: flex;
     flex-wrap: wrap;
@@ -104,7 +113,8 @@
 }
 
 @media (min-width: 40em) {
-    .single-projects-intro {
+    .single-projects-intro
+     {
         margin: 0 3rem;
     }
 

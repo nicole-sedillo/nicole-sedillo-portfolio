@@ -62,22 +62,26 @@ function About() {
       try {
         const interests = aboutData?.[0]?.acf?.interests_images;
         if (!interests) return;
-
+  
         const imagesPromises = interests.map(interest => fetchImageUrlById(interest.interests_image));
         const images = await Promise.all(imagesPromises);
-
+  
+        const captions = interests.map(interest => interest.interests_caption);
+  
         setInterestsData({
           title: aboutData?.[0]?.acf?.interests_title,
-          text: aboutData?.[0]?.acf?.interests_text,
-          images: images.filter(image => image) 
+          images: images.filter(image => image),
+          captions: captions,
         });
       } catch (error) {
         console.error('Error fetching interests data:', error);
       }
     };
-
+  
     fetchInterestsData();
   }, [aboutData]);
+  
+  
 
   useEffect(() => {
     const fetchProfilePicture = async () => {
@@ -97,12 +101,12 @@ function About() {
 
   return (
     <div className='main'>
-      <div className='about-intro-section'>
-        <h1>About</h1>
+        <h1 className="about-header">About</h1>
+        <div className='about-intro-section'>
         {profileImageUrl && (
           <img src={profileImageUrl} alt="Profile" />
         )}
-        <p>{aboutData?.[0]?.acf?.about_overview}</p>
+        <p className="about-overview">{aboutData?.[0]?.acf?.about_overview}</p>
       </div>
 
       <div className='skills-section'>
@@ -148,21 +152,20 @@ function About() {
         </div>
       </div>
 
-     
-      <div className='interests-section'>
-        <header>
-          <h2>Interests</h2>
-        </header>
-        <div className='interests-text'>
-          <p dangerouslySetInnerHTML={{ __html: interestsData.text }}></p>
-        </div>
-        <div className='interests-images'>
-          {interestsData.images && interestsData.images.map((imageUrl, index) => (
-            <img key={index} src={imageUrl} alt={`Interest ${index}`} />
-          ))}
-        </div>
+     <header>
+      <h2>Interests</h2>
+      </header>
+      <div className='interests-images'>
+        {interestsData.images && interestsData.images.map((imageUrl, index) => (
+          <div key={index} className="interest-image-container">
+            <img className="interest-image" src={imageUrl} alt={`Interest ${index}`} />
+            <p className="interests-caption">{interestsData?.captions[index]}</p>
+          </div>
+      ))}
       </div>
-    </div>
+
+      </div>
+    
   );
 }
 

@@ -44,6 +44,7 @@
 h1 {
   color: #6622CC;
   margin: 1rem;
+  text-align: center;
 }
 
 h2,
@@ -82,8 +83,15 @@ p {
 }
 
 @media (min-width: 62.5em) {
-  h2 {
+  h1 {
     font-size: 2rem;
+  }
+  h2 {
+    font-size: 1.75rem;
+  }
+  p {
+    font-size: 1.25rem;
+    line-height: 2.25rem;
   }
 }
 .main-home {
@@ -144,24 +152,30 @@ p {
 }
 @media (min-width: 62.5em) {
   .home-banner-text {
-    margin-left: 25rem;
-  }
-  .home-banner h1 {
-    font-size: 4rem;
+    margin-left: 18rem;
   }
   .home-banner p {
-    font-size: 2.5rem;
+    font-size: 2rem;
     line-height: 3.5rem;
+  }
+}
+@media (min-width: 87em) {
+  .home-banner-text {
+    margin-left: 25rem;
   }
 }
 @media (min-width: 90em) {
   .home-banner-text {
     margin-left: 30rem;
   }
+  .home-banner p {
+    font-size: 2.5rem;
+    line-height: 3.5rem;
+  }
 }
 @media (min-width: 93.5em) {
   .home-banner-text {
-    margin-left: 40rem;
+    margin-left: 35rem;
   }
 }
 @media (min-width: 120em) {
@@ -243,9 +257,23 @@ p {
   gap: 2rem;
 }
 
+.main h2 {
+  margin-left: 0.5rem;
+}
+
+.main p {
+  max-width: 60rem;
+}
+
 .about-intro-section {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.about-header {
+  text-align: center;
 }
 
 .about-intro-section img {
@@ -278,10 +306,11 @@ p {
   flex-wrap: wrap;
   gap: 3rem;
   margin: 2rem 1rem;
+  justify-content: center;
 }
 
 .skills-card {
-  border-radius: 4rem;
+  border-radius: 2rem;
   color: #6622CC;
   position: relative;
   background: white;
@@ -325,35 +354,87 @@ p {
   line-height: 1rem;
 }
 
-.interests-section img {
-  width: 100%;
-  max-width: 20rem;
-}
-
 .interests-images {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 2rem;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.interest-image-container {
+  position: relative;
+  display: inline-block;
+  margin: 0 1rem;
+  transition: transform 0.3s ease;
+}
+
+.interest-image {
+  display: block;
+  width: 100%;
+  max-width: 20rem;
+  border-radius: 2rem;
+  height: 35.573125rem;
+  object-fit: cover;
+}
+
+.interests-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 10px;
+  margin: 0;
+  box-sizing: border-box;
+  border-radius: 0px 0px 50px 50px/0px 0px 25px 25px;
+  padding: 1rem;
+}
+
+.interest-image-container:hover {
+  transform: translateY(-5px);
 }
 
 @media (min-width: 32.875em) {
-  .skills-cards-section {
-    justify-content: center;
-  }
   .skills-card:hover {
     transform: translateY(-5px); /* Move the card up slightly on hover */
     transition: transform 0.3s ease;
   }
+  .main {
+    margin: 0 2rem;
+  }
 }
 @media (min-width: 40em) {
+  .skills-elements {
+    gap: 2rem;
+  }
   .main {
-    padding: 0 4rem;
+    margin: 0 6rem;
+  }
+}
+@media (min-width: 75.5em) {
+  .skills-cards-section,
+  .interests-images {
+    justify-content: flex-start;
+  }
+  .main h2 {
+    text-align: left;
   }
 }
 @media (min-width: 90em) {
   .main {
-    padding: 0 8rem;
+    margin: 0 8rem;
+  }
+  .about-intro-section {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  .about-intro-section p {
+    margin-top: 1rem;
+  }
+  .skills-elements {
+    gap: 2rem;
   }
 }
 .project-single-main {
@@ -378,6 +459,10 @@ p {
   padding: 0.5rem 1rem;
 }
 
+.project-links a:hover {
+  background-color: #000000;
+}
+
 .single-desktop-image img,
 .other-projects-section img {
   width: 100%;
@@ -396,6 +481,10 @@ p {
 .extras-section h3 {
   text-align: left;
   margin-left: 1rem;
+}
+
+.extras-section h3:hover {
+  color: #000000;
 }
 
 .tools-used-list ul {
