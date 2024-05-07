@@ -1,6 +1,7 @@
 .home-projects-section {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .project-card {
@@ -20,7 +21,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #6622cc25; /* Adjust opacity as needed */
+    background-color: #6622cc25; 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -58,6 +59,11 @@
 .project-card a {
     text-decoration: none;
     
+}
+
+.project-card:hover {
+    transform: scale(1.05);
+    transition: transform 0.3 cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .desktop-image img{

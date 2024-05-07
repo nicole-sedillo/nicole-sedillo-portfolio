@@ -9,6 +9,7 @@ import github from "./images/github.svg";
 import email from "./images/email.svg";
 import linkedin from "./images/linkedin.svg";
 
+
 // Get current year for footer
 const currentYear = new Date().getFullYear();
 

@@ -1,7 +1,16 @@
 @use "variables" as *;
 
+#root {
+    background-color: $primary-color;
+}
+
 .logo {
     width: 5rem;
+}
+
+h1 {
+    color: $secondary-color;
+    margin: 1rem;
 }
 
 h2,
@@ -28,6 +37,7 @@ a {
 p{
     max-width: 80rem;
     line-height: 1.75rem;
+    margin: 1rem;
 }
 
 .skip-link {
@@ -38,3 +48,8 @@ p{
     overflow: hidden;
   }
 
+  @media (min-width: 62.5em) {
+    h2 {
+        font-size: 2rem;
+    }
+  }

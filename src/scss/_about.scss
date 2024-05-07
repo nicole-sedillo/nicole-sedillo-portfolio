@@ -6,6 +6,18 @@
     gap: 2rem;
 }
 
+.about-intro-section {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.about-intro-section img {
+    width: 16rem;
+    margin: 1rem;
+
+}
+
 .skills-section img {
     width: 2rem;
 }

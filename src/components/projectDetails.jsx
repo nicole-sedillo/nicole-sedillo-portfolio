@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getProjects, fetchImageUrlById } from '../utilities/api';
 
+
 function ProjectDetails() {
   const { projectId } = useParams();
   const [project, setProject] = useState(null);
   const [otherProjects, setOtherProjects] = useState([]);
-  const [activeTab, setActiveTab] = useState('toolsUsed');
+  const [insightsOpen, setInsightsOpen] = useState(false);
+  const [highlightsOpen, setHighlightsOpen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,10 +41,16 @@ function ProjectDetails() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch all projects except the current one
         const projectsData = await getProjects();
         const filteredProjects = projectsData.filter(proj => proj.id !== parseInt(projectId));
-        setOtherProjects(filteredProjects);
+        
+       
+        const otherProjectsData = await Promise.all(filteredProjects.map(async (proj) => {
+          const desktopImageUrl = proj?.acf?.desktop_image ? await fetchImageUrlById(proj.acf.desktop_image) : null;
+          return { ...proj, desktopImageUrl };
+        }));
+        
+        setOtherProjects(otherProjectsData);
       } catch (error) {
         console.error('Error fetching other projects:', error);
       }
@@ -58,11 +66,9 @@ function ProjectDetails() {
   return (
     <div className='project-single-main'>
       <div className="single-project-top-section">
-        <div className="single-projects-intro">
+        <header>
           <h2>{project?.title?.rendered}</h2>
-          <p>{project?.acf?.project_overview}</p>
-        </div>
-
+        </header>
         <div className="single-project-images-section">
           <div className="single-desktop-image">
             {project.desktopImageUrl && (
@@ -82,49 +88,17 @@ function ProjectDetails() {
           </div>
         </div>
       </div>
-
-      <div className="single-project-mid-section">
-        <div className="tab-navigation">
-          <button className={activeTab === 'toolsUsed' ? 'active' : ''} onClick={() => setActiveTab('toolsUsed')}>Tools Used</button>
-          <button className={activeTab === 'insights' ? 'active' : ''} onClick={() => setActiveTab('insights')}>Insights</button>
-          <button className={activeTab === 'highlights' ? 'active' : ''} onClick={() => setActiveTab('highlights')}>Highlights</button>
+      <div className="single-projects-intro">
+        <div className="tools-used-section">
+          <div className='tools-used-list'>
+            <ul>
+              {project?.acf?.tools_used_text && (
+                <div dangerouslySetInnerHTML={{ __html: project.acf.tools_used_text }} />
+              )}
+            </ul>
+          </div>
         </div>
-
-        <div className="tab-content">
-          {activeTab === 'toolsUsed' && (
-            <div className="tools-used-section">
-              <header>
-                <h3>Tools Used</h3>
-              </header>
-              <div className='tools-used-list'>
-                <ul>
-                  {project?.acf?.tools_used_text && (
-                    <div dangerouslySetInnerHTML={{ __html: project.acf.tools_used_text }} />
-                  )}
-                </ul>
-              </div>
-            </div>
-          )}
-
-          {activeTab === 'insights' && (
-            <div className='insights-section'>
-              <header>
-                <h3>Insights</h3>
-              </header>
-              <p>{project?.acf?.insights_text}</p>
-            </div>
-          )}
-
-          {activeTab === 'highlights' && (
-            <div className='highlights-section'>
-              <header>
-                <h3>Highlights</h3>
-              </header>
-              <p>{project?.acf?.highlights_text}</p>
-            </div>
-          )}
-        </div>
-
+        <p className="project-paragraph-section">{project?.acf?.project_overview}</p>
         <div className="project-links">
           <p>
             {project?.acf?.github_link?.url && (
@@ -148,19 +122,50 @@ function ProjectDetails() {
             </p>
           )}
         </div>
-      </div>
+      
+      <section className="extras-section">
+        <div className='insights-section'>
+          <header onClick={() => setInsightsOpen(!insightsOpen)} style={{ cursor: 'pointer' }}>
+            <h3>Insights {insightsOpen ? '▼' : '►'}</h3>
+          </header>
+          {insightsOpen && (
+            <div>
+              <p>{project?.acf?.insights_text}</p>
+            </div>
+          )}
+        </div>
+        <div className='highlights-section'>
+          <header onClick={() => setHighlightsOpen(!highlightsOpen)} style={{ cursor: 'pointer' }}>
+            <h3>Highlights {highlightsOpen ? '▼' : '►'}</h3>
+          </header>
+          {highlightsOpen && (
+            <div>
+              <p>{project?.acf?.highlights_text}</p>
+            </div>
+          )}
+        </div>
+      </section>
 
+      </div>
       <div className='other-projects-section'>
         <h3>Other Projects</h3>
-        <ul>
-          {otherProjects.map(proj => (
-            <li key={proj.id}>
-              <Link to={`/project/${proj.id}`}>{proj.title.rendered}</Link>
-            </li>
-            
-          ))}
-        </ul>
-        </div>
+        {otherProjects.length > 0 && (
+          <div className="other-projects-all">
+            {otherProjects.map((proj, index) => (
+              <div className="other-projects-card" key={proj.id}>
+                <Link to={`/project/${proj.id}`}>
+                  <h4>{proj.title.rendered}</h4>
+                  {proj.desktopImageUrl && (
+                    <img src={proj.desktopImageUrl} alt={proj.title.rendered} />
+                  )}
+                  <div className="project-tools-used" dangerouslySetInnerHTML={{ __html: proj.acf.tools_used_text }} />
+                  
+                </Link>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

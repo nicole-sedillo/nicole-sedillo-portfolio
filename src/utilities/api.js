@@ -26,6 +26,8 @@ export async function fetchImageUrlById(imageId) {
   }
 }
 
+
+
 export async function getProjects() {
   try {
     const response = await fetch('https://nicolesedillo.com/portfolio/wp-json/wp/v2/project');

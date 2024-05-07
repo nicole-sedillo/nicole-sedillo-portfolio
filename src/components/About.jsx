@@ -5,6 +5,7 @@ function About() {
   const [aboutData, setAboutData] = useState([]);
   const [skillsData, setSkillsData] = useState({});
   const [interestsData, setInterestsData] = useState({}); 
+  const [profileImageUrl,setProfileImageUrl] = useState('');
 
   useEffect(() => {
     getPages()
@@ -30,6 +31,7 @@ function About() {
         const codingImages = await Promise.all(codingPromises);
         const designImages = await Promise.all(designPromises);
         const marketingImages = await Promise.all(marketingPromises);
+        
 
         const updatedSkillsData = {
           codingSkills: codingSkills ? codingSkills.map((skill, index) => ({
@@ -77,10 +79,29 @@ function About() {
     fetchInterestsData();
   }, [aboutData]);
 
+  useEffect(() => {
+    const fetchProfilePicture = async () => {
+      try {
+        const profilePictureId = aboutData?.[0]?.acf?.profile_picture;
+        if (!profilePictureId) return;
+
+        const imageUrl = await fetchImageUrlById(profilePictureId);
+        setProfileImageUrl(imageUrl);
+      } catch (error) {
+        console.error('Error fetching profile picture:', error);
+      }
+    };
+
+    fetchProfilePicture();
+  }, [aboutData]);
+
   return (
     <div className='main'>
       <div className='about-intro-section'>
         <h1>About</h1>
+        {profileImageUrl && (
+          <img src={profileImageUrl} alt="Profile" />
+        )}
         <p>{aboutData?.[0]?.acf?.about_overview}</p>
       </div>
 
