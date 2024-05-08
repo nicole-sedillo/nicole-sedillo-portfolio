@@ -100,26 +100,25 @@ function ProjectDetails() {
         </div>
         <p className="project-paragraph-section">{project?.acf?.project_overview}</p>
         <div className="project-links">
-          <p>
+          
             {project?.acf?.github_link?.url && (
               <a href={project.acf.github_link.url} target="_blank" rel="noopener noreferrer">
                 {project.acf.github_link.title}
               </a>
             )}
-          </p>
-          <p>
+          
+          
             {project?.acf?.live_site_link?.url && (
               <a href={project.acf.live_site_link.url} target="_blank" rel="noopener noreferrer">
                 {project.acf.live_site_link.title}
               </a>
             )}
-          </p>
+          
           {project?.acf?.prototype_link?.url && (
-            <p>
               <a href={project.acf.prototype_link.url} target="_blank" rel="noopener noreferrer">
                 {project.acf.prototype_link.title}
               </a>
-            </p>
+            
           )}
         </div>
       

@@ -15,12 +15,16 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1rem;
 }
 
 .project-links a {
     background-color: $secondary-color;
     color: #fff;
     padding: 0.5rem 1rem;
+    font-size: 0.75rem;
 }
 
 .project-links a:hover {
@@ -120,6 +124,10 @@
 
     .project-links {
         justify-content: center;
+    }
+
+    .project-links a {
+        font-size: 1rem;
     }
 
 }
