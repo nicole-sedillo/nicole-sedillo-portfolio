@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom'; 
 import { getPages, getProjects, fetchImageUrlById } from "../utilities/api";
-
-
-
+import LoadingSpinner from "./Loading"; // Import the LoadingSpinner component
 
 function Home() {
     const [homeData, setHomeData] = useState([]);
     const [projects, setProjects] = useState([]);
     const [developerText, setDeveloperText] = useState("Front-End Web Developer");
+    const [loading, setLoading] = useState(true); // Add loading state
 
     // Function for dynamic text
     useEffect(() => {
@@ -34,22 +33,25 @@ function Home() {
         };
     }, []);
 
-
     useEffect(() => {
         getPages()
             .then(data => {
                 setHomeData(data);
+                setLoading(false); // Set loading to false once data is fetched
             })
             .catch(error => {
                 alert(error);
+                setLoading(false); // Set loading to false even if there is an error
             });
 
         getProjects()
             .then(data => {
                 setProjects(data);
+                setLoading(false); // Set loading to false once data is fetched
             })
             .catch(error => {
                 console.error("Error fetching projects:", error);
+                setLoading(false); // Set loading to false even if there is an error
             });
     }, []);
 
@@ -60,16 +62,16 @@ function Home() {
                 const projectsWithImages = await Promise.all(projectsData.map(async project => {
                     const desktopImageUrl = project?.acf?.desktop_image ? await fetchImageUrlById(project.acf.desktop_image) : null;
                     
-
                     return {
                         ...project,
                         desktopImageUrl,
-                        
                     };
                 }));
                 setProjects(projectsWithImages);
+                setLoading(false); // Set loading to false once data is fetched
             } catch (error) {
                 console.error("Error fetching projects:", error);
+                setLoading(false); // Set loading to false even if there is an error
             }
         };
 
@@ -77,7 +79,6 @@ function Home() {
     }, []);
 
     useEffect(() => {
-        // Smooth scroll to projects section when page loads with a hash in the URL
         const hash = window.location.hash;
         if (hash === '#projects-section') {
             const projectsSection = document.getElementById('projects-section');
@@ -87,6 +88,9 @@ function Home() {
         }
     }, []);
 
+    if (loading) {
+        return <LoadingSpinner />; // Show loading spinner while loading
+    }
 
     return (
         <div className="main-home">

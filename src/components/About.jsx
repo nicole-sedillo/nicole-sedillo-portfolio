@@ -1,19 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { getPages, fetchImageUrlById } from '../utilities/api';
+import LoadingSpinner from './Loading'; 
 
 function About() {
   const [aboutData, setAboutData] = useState([]);
   const [skillsData, setSkillsData] = useState({});
-  const [interestsData, setInterestsData] = useState({}); 
-  const [profileImageUrl,setProfileImageUrl] = useState('');
+  const [interestsData, setInterestsData] = useState({});
+  const [profileImageUrl, setProfileImageUrl] = useState('');
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
     getPages()
       .then(data => {
         setAboutData(data);
+        setLoading(false); 
       })
       .catch(error => {
         console.error('Error fetching about data:', error);
+        setLoading(false); 
       });
   }, []);
 
@@ -31,7 +35,6 @@ function About() {
         const codingImages = await Promise.all(codingPromises);
         const designImages = await Promise.all(designPromises);
         const marketingImages = await Promise.all(marketingPromises);
-        
 
         const updatedSkillsData = {
           codingSkills: codingSkills ? codingSkills.map((skill, index) => ({
@@ -62,12 +65,12 @@ function About() {
       try {
         const interests = aboutData?.[0]?.acf?.interests_images;
         if (!interests) return;
-  
+
         const imagesPromises = interests.map(interest => fetchImageUrlById(interest.interests_image));
         const images = await Promise.all(imagesPromises);
-  
+
         const captions = interests.map(interest => interest.interests_caption);
-  
+
         setInterestsData({
           title: aboutData?.[0]?.acf?.interests_title,
           images: images.filter(image => image),
@@ -77,11 +80,9 @@ function About() {
         console.error('Error fetching interests data:', error);
       }
     };
-  
+
     fetchInterestsData();
   }, [aboutData]);
-  
-  
 
   useEffect(() => {
     const fetchProfilePicture = async () => {
@@ -99,10 +100,14 @@ function About() {
     fetchProfilePicture();
   }, [aboutData]);
 
+  if (loading) {
+    return <LoadingSpinner />; 
+  }
+
   return (
     <div className='main'>
-        <h1 className="about-header">About</h1>
-        <div className='about-intro-section'>
+      <h1 className="about-header">About</h1>
+      <div className='about-intro-section'>
         {profileImageUrl && (
           <img src={profileImageUrl} alt="Profile" />
         )}
@@ -152,8 +157,8 @@ function About() {
         </div>
       </div>
 
-     <header>
-      <h2>Interests</h2>
+      <header>
+        <h2>Interests</h2>
       </header>
       <div className='interests-images'>
         {interestsData.images && interestsData.images.map((imageUrl, index) => (
@@ -161,11 +166,9 @@ function About() {
             <img className="interest-image" src={imageUrl} alt={`Interest ${index}`} />
             <p className="interests-caption">{interestsData?.captions[index]}</p>
           </div>
-      ))}
+        ))}
       </div>
-
-      </div>
-    
+    </div>
   );
 }
 

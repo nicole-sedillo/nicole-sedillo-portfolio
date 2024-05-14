@@ -5,12 +5,12 @@
     padding-bottom: 2rem;
 }
 .home-banner {
-    height: 100vh;
+    height: 80vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    gap: 20rem;
-    padding-left: 1.5rem;
+    justify-content: flex-start;
+    margin: 10rem 1.5rem 0rem;
+    gap: 18rem;
 }
 
 .home-banner h1 {
@@ -26,6 +26,10 @@
 
 .dynamic-text{
     color: $secondary-color;
+}
+
+.home-banner .mouse_scroll {
+    margin: auto;
 }
 
 .projects-link {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getProjects, fetchImageUrlById } from '../utilities/api';
+import LoadingSpinner from './Loading';
 
 
 function ProjectDetails() {
@@ -59,8 +60,13 @@ function ProjectDetails() {
     fetchData();
   }, [projectId]);
 
+  useEffect(() => {
+    // Scroll to the top of the page when projectId changes
+    window.scrollTo(0, 0);
+  }, [projectId]);
+
   if (!project) {
-    return <div>Loading...</div>;
+    return <LoadingSpinner />;
   }
 
   return (
